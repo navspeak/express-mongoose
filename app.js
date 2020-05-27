@@ -4,6 +4,7 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const uuid = require('uuid');
 const api = require('./api');
 
 app.set('port', (process.env.PORT || 8081));
@@ -13,6 +14,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
 app.use(morgan('dev'));
 app.use(cors());
+app.use((req, res, next) => {
+  app.set('requestId', uuid.v4());
+  console.log(app.get('requestId'));
+  console.log(req.path);
+  console.log(req.get('X-MyHeader') ? req.get('X-MyHeader') : 'Not set');
+  next();
+});
 
 app.use('/api', api);
 

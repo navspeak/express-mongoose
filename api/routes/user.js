@@ -3,7 +3,7 @@ const User = require('../../models/user');
 module.exports = function (router) {
   router.get('/user', async (req, res) => {
     try {
-      const docs = await User.find().sort({ createdOn: -1 }).exec();
+      const docs = await User.find({}).sort({ createdOn: -1 }).exec();
       res.status(200).json(docs);
     } catch (error) {
       res.status(500)

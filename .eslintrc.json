@@ -2,7 +2,8 @@
     "extends": "airbnb-base",
     "env": {
         "es6": true,
-        "node": true
+        "node": true,
+        "mocha": true
     },
     "rules" : {
         "no-console":  "off",
@@ -10,5 +11,13 @@
         "prefer-const": "warn",
         "no-unused-vars": "warn"
 
-    }
+    },
+    "overrides": [
+        {
+            "files": ["*.test.js", "*.spec.js"],
+            "rules": {
+                "no-unused-expressions": "off"
+            }
+        }
+    ]
 }
