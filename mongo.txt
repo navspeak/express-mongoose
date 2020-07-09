@@ -1,0 +1,6 @@
+> show dbs
+> db
+> use foo
+Memory Mapped files
+Document size = 16 MB
+> db.foo.getIndices()

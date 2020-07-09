@@ -1,0 +1,92 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Hello World App
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /recipes:
+    x-swagger-router-controller: recipe
+    get:
+      description: Return all the recipes
+      operationId: getRecipes
+      responses: 
+        "200":
+          description: Sucess get all the recipes
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Recipe"
+        "500":
+          description: Unexpected Error
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    post:
+        description: create one new receipe
+        operationId: postRecipe
+        parameters:
+          - in: body
+            name: body
+            description: The recipe to be added
+            required: true
+            schema:
+              $ref: "#/definitions/Recipe"
+        responses:
+          "204":
+            description: Success
+          "500":
+            description: Unexpected Error
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+          
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+ 
+# complex objects have schema definitions
+definitions:
+  Recipe:
+    properties:
+      id:
+        type: integer
+      isPublic:
+        type: boolean
+      name: 
+        type: string
+      chef:
+        type: string
+        enum: [Joao, Charles]
+      stepList:
+        type: array
+        items:
+          type: string
+      ingredients:
+        type: array
+        items:
+          type: object
+          properties:
+            amount:
+              type: number
+            name:
+              type: string
+        
+  

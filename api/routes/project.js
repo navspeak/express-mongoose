@@ -5,6 +5,7 @@ module.exports = function (router) {
   const qry = {
     isActive: { $eq: true }
   };
+
   router.get('/projects', (req, res) => {
     Project.find(qry)
       .sort({ name: 1 })
